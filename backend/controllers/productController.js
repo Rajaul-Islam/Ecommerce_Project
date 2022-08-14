@@ -1,24 +1,32 @@
 const Product = require("../productModels/productModel");
 const ErrorHandler = require("../utils/errorHander");
 
-const catchAsyncError = require("../middleware/catchAsyncError")
+const catchAsyncError = require("../middleware/catchAsyncError");
+const ApiFeatures = require("../utils/apiFeature");
 
 //create product -admin can access
 
 exports.createProduct = catchAsyncError(async (req, res, next) => {
-    const product = await Product.create(req.body);
-    res.status(201).json({
-      success: true,
-      product,
-    });
-  })
+  const product = await Product.create(req.body);
+  res.status(201).json({
+    success: true,
+    product,
+  });
+});
 
 // get all product
 exports.getAllProduct = catchAsyncError(async (req, res) => {
-  const products = await Product.find();
+ const apiFeature= new ApiFeatures(Product.find(), req.query)
+ .search()
+ .filter
+  // const products = await Product.find();
+
+  const products = await apiFeature.query;
+
+
 
   res.status(200).json({ success: true, products });
-})
+});
 
 //get single product
 
@@ -32,7 +40,7 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
     success: true,
     product,
   });
-})
+});
 
 //update product -admin
 
@@ -50,7 +58,7 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
     success: true,
     product,
   });
-})
+});
 
 //delete product
 
@@ -64,9 +72,4 @@ exports.deleteProduct = catchAsyncError(async (req, res, next) => {
     success: true,
     message: "deleted successfully",
   });
-})
-
-
-
-
-
+});
