@@ -7,6 +7,9 @@ const ApiFeatures = require("../utils/apiFeature");
 //create product -admin can access
 
 exports.createProduct = catchAsyncError(async (req, res, next) => {
+  
+  req.body.productCreator=req.user.id;
+  
   const product = await Product.create(req.body);
   res.status(201).json({
     success: true,
@@ -16,16 +19,23 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 
 // get all product
 exports.getAllProduct = catchAsyncError(async (req, res) => {
+
+  const resultPerPage =10;
+
+  const productCount = await Product.countDocuments();
+
+
  const apiFeature= new ApiFeatures(Product.find(), req.query)
  .search()
- .filter
+ .filter().pagination(resultPerPage)
   // const products = await Product.find();
 
   const products = await apiFeature.query;
 
 
 
-  res.status(200).json({ success: true, products });
+  res.status(200).json({ success: true, products,
+    productCount });
 });
 
 //get single product
@@ -39,6 +49,7 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     product,
+    productCount,
   });
 });
 
