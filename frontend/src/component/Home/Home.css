@@ -57,3 +57,12 @@
     padding: 1vmax;
     margin: 5vmax auto;
 }
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2vmax auto;
+    width: 80vmax;
+    max-width: 100%;
+}

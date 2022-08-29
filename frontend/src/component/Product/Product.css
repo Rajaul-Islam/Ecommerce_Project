@@ -17,7 +17,7 @@ margin: 2vmax;
 
 .productCard>div>span{
     margin: 0.5vmax;
-    font: 300 0.7vmax "Roboto"
+    font: 300 1vmax "Roboto"
 }
 
 .productCard>p{
@@ -28,12 +28,33 @@ margin: 2vmax;
 }
 
 .productCard > span{
-    margin: 0.5vmax ;
+    margin: 0.7vmax ;
     color: tomato;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
     font-size: 1vmax;
 }
 .productCard:hover{
      box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
-     border-radius: 5px;
+     /* border-radius: 5px; */
+     transform: translateY(-1vmax);
+     transition: all .5s;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .productCard > p{
+        font-size: 1.7vmax;
+    }
+    .productCard > div{
+        margin: 0vmax;
+        display: block;
+    }
+    .productCard > span{
+        font-size: 1.5vmax;
+    }
+    .productCard > div > span{
+      margin: 0 0.5vmax;  
+    }
 }
