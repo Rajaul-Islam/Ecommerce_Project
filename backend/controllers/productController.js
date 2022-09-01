@@ -31,7 +31,12 @@ exports.getAllProduct = catchAsyncError(async (req, res, next) => {
 
   const products = await apiFeature.query;
 
-  res.status(200).json({ success: true, products, productCount });
+  res.status(200).json({
+    success: true,
+    products,
+    productCount,
+    resultPerPage,
+  });
 });
 
 //get single product
@@ -80,10 +85,6 @@ exports.deleteProduct = catchAsyncError(async (req, res, next) => {
   });
 });
 
-
-
-
-
 /// Create New Review or Update the review
 exports.createProductReview = catchAsyncError(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
@@ -97,21 +98,18 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
 
   const product = await Product.findById(productId);
 
-  const isReviewed = product.reviews.find(
-    (rev) =>{ 
-
-      console.log("rev.user",rev);
-      console.log("req.user_id",req.user._id);
-      rev.user=== req.user._id
-    }
-  );
-  console.log("before",isReviewed);
+  const isReviewed = product.reviews.find((rev) => {
+    console.log("rev.user", rev);
+    console.log("req.user_id", req.user._id);
+    rev.user === req.user._id;
+  });
+  console.log("before", isReviewed);
   if (isReviewed) {
     // console.log("before",isReviewed);
     product.reviews.forEach((rev) => {
       if (rev.user === req.user._id)
         (rev.rating = rating), (rev.comment = comment);
-        console.log("after",isReviewed);
+      console.log("after", isReviewed);
     });
   } else {
     product.reviews.push(review);

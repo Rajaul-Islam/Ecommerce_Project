@@ -12,3 +12,51 @@
     justify-content: center;
     align-items: center;
 }
+
+.paginationBox{
+    display: flex;
+    justify-content: center;
+    margin: 6vmax;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    padding: 0%;
+
+}
+
+.page-item{
+    background-color:white;
+    list-style: none;
+    border: 1px solid rgba(0,0,0,0.171);
+    padding: 1vmax 1.5vmax;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.page-item >item:first-child{
+    border-radius: 5px 0 0 5px;
+}
+.page-item >item:last-child{
+border-radius: 0 5px 5px 0;
+}
+
+.page-link{
+    text-decoration: none;
+    font: 300 1.2vmax "Roboto";
+    color: rgb(80,80,80);
+    transition: all 0.3s;
+}
+.page-item:hover{
+    background-color: rgb(230, 230, 230);
+}
+.page-item:hover.page-link{
+    /* color: black */
+}
+.pageItemActive{
+    background-color: tomato;
+}
+.pageLInkActive{
+    color: white;
+}
