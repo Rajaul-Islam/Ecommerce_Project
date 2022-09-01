@@ -7,6 +7,7 @@ import Product from "../Product/Product";
 import "./Products.css";
 import Pagination from "react-js-pagination";
 
+
 const Products = () => {
   const dispatch = useDispatch();
 
@@ -41,6 +42,14 @@ const Products = () => {
               products.map((product) => (
                 <Product product={product} key={product._id}></Product>
               ))}
+          </div>
+        
+          <Typography variant="h1" component="h2">
+            
+          </Typography>
+          ;
+          <div className="filterBox">
+            <Typography></Typography>
           </div>
           {resultPerPage < productCount && (
             <div className="paginationBox">
