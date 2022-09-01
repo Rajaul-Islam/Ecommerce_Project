@@ -16,9 +16,10 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
   });
 });
 
-// get all product
-exports.getAllProduct = catchAsyncError(async (req, res) => {
-  const resultPerPage = 10;
+// get all products
+exports.getAllProduct = catchAsyncError(async (req, res, next) => {
+  // return next(new ErrorHandler("this is my temp error",400));
+  const resultPerPage = 8;
 
   const productCount = await Product.countDocuments();
 
@@ -44,7 +45,6 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     product,
-    productCount,
   });
 });
 

@@ -5,26 +5,24 @@ import Product from "../Product/Product";
 import Metadata from "../layout/Metadata";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getProduct } from "../../actions/productAction";
+import { clearError, getProduct } from "../../actions/productAction";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
 
-
-
-
-const Home = () => {
-  
-  const alert = useAlert()
+const Home = (props) => {
+  console.log(props)
+  const alert = useAlert();
   const dispatch = useDispatch();
   const { loading, error, products, productCount } = useSelector(
     (state) => state.products
   );
   useEffect(() => {
-    if(error){
-      return alert.error(error)
+    if (error) {
+      alert.error(error);
+      dispatch(clearError());
     }
     dispatch(getProduct());
-  }, [dispatch,error]);
+  }, [dispatch, error,alert]);
   return (
     <Fragment>
       {loading ? (
@@ -32,7 +30,7 @@ const Home = () => {
       ) : (
         <Fragment>
           <Metadata title="meta data is working"></Metadata>
-          
+
           <div className="banner">
             <p>Welcome to Buy Your Dream</p>
             <h1>Find amazing products below</h1>
@@ -50,7 +48,6 @@ const Home = () => {
               ))}
           </div>
         </Fragment>
-        
       )}
       {/* <button
       onClick={() => {

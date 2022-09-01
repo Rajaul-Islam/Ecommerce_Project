@@ -1,0 +1,14 @@
+.productsHeading{
+    margin: 2vmax auto;
+    width: 15vmax;
+    border-bottom: 1px solid rgba(0,0,0,0.171);
+    text-align: center;
+    color: rgba(0,0,0,0.785);
+    padding: 2vmax;
+}
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
