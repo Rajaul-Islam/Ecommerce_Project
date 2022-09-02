@@ -11,6 +11,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-left: 6vmax;
 }
 
 .paginationBox{
@@ -59,4 +60,38 @@ border-radius: 0 5px 5px 0;
 }
 .pageLInkActive{
     color: white;
+}
+
+.filterBox{
+    width: 10vmax;
+    position: absolute;
+    top:10vmax;
+    left: 2vmax;
+}
+
+.categoryBox{
+    padding: 0%;
+}
+.category-link{
+    list-style: none;
+    color: rgba(0,0,0,0.61);
+    font: 400 1vmax "Roboto";
+    margin: .5vmax;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.category-link:hover{
+    color: tomato;
+}
+
+@media screen and (max-width: 600px){
+    .filterBox{
+        width: 20vmax;
+        position: static;
+        margin: auto;
+    }
+    .page-link{
+        font: 400 2vmax "Roboto";
+    }
+    
 }
