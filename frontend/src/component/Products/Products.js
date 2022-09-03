@@ -1,12 +1,15 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getProduct } from "../../actions/productAction";
+import { clearError, getProduct } from "../../actions/productAction";
 import Loader from "../layout/Loader/Loader";
 import Product from "../Product/Product";
 import "./Products.css";
 import Pagination from "react-js-pagination";
 import { Slider, Typography } from "@mui/material";
+import {useAlert} from 'react-alert'
+import Metadata from "../layout/Metadata";
+
 
 const categories = [
   "Laptop",
@@ -22,9 +25,12 @@ const categories = [
 const Products = () => {
   const dispatch = useDispatch();
 
+const alert =useAlert()
+  
   const [price, setPrice] = useState([0, 25000]);
   console.log(price);
   const [category, setCategory] = useState("");
+  const [ratings, setRating] = useState(0);
 
   const priceHandler = (e, newPrice) => {
     setPrice(newPrice);
@@ -51,8 +57,12 @@ const Products = () => {
   // console.log(keyword);
 
   useEffect(() => {
-    dispatch(getProduct(keyword, currentPage, price));
-  }, [dispatch, keyword, currentPage, price]);
+    if(error){
+      alert.error(error)
+      dispatch(clearError)
+    }
+    dispatch(getProduct(keyword, currentPage, price, category,ratings));
+  }, [dispatch, keyword, currentPage, price, category,ratings,error]);
 
   let count = filteredProductsCount;
   return (
@@ -61,6 +71,8 @@ const Products = () => {
         <Loader></Loader>
       ) : (
         <Fragment>
+          <Metadata title="PRODUCTS---ECOMMERS">
+          </Metadata>
           <h2 className="productsHeading">Products</h2>
           <div className="products">
             {products &&
@@ -70,9 +82,7 @@ const Products = () => {
           </div>
 
           <div className="filterBox">
-            <Typography >
-              Price
-            </Typography>
+            <Typography>Price</Typography>
             <Slider
               value={price}
               onChange={priceHandler}
@@ -89,9 +99,30 @@ const Products = () => {
                   className="category-link"
                   key={category}
                   onClick={() => setCategory(category)}
-                >{category}</li>
+                >
+                  {category}
+                </li>
               ))}
             </ul>
+            <fieldset>
+              <Typography component="legend">Rating Above</Typography>
+
+              <Slider
+                value={ratings}
+                onChange={(e, newRating) => {
+                  setRating(newRating);
+                }}
+               
+                min={0}
+                max={5}
+                aria-label="Always visible"
+             
+                
+                step={0.5}
+               
+                valueLabelDisplay="on"
+              ></Slider>
+            </fieldset>
           </div>
           {resultPerPage < productCount && (
             <div className="paginationBox">

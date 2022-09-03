@@ -17,17 +17,55 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 });
 
 // get all products
-exports.getAllProduct = catchAsyncError(async (req, res, next) => {
-  // return next(new ErrorHandler("this is my temp error",400));
-  const resultPerPage = 8;
+// exports.getAllProduct = catchAsyncError(async (req, res, next) => {
+//   // return next(new ErrorHandler("this is my temp error",400));
+//   const resultPerPage = 8;
 
+//   const productCount = await Product.countDocuments();
+
+//   const apiFeature = new ApiFeatures(Product.find(), req.query)
+//     .search()
+//     .filter()
+
+   
+//    let products = await apiFeature.query
+//  const  filteredProductsCount=products.length;
+//  apiFeature.pagination(resultPerPage)
+//   //------------------------
+
+//   //
+//   //
+//   //   apiFeature.pagination(resultPerPage)
+
+//   // products = await apiFeature.query;
+
+//   //------------------------------------
+//    products = await apiFeature.query;
+
+//   res.status(200).json({
+//     success: true,
+//     products,
+//     productCount,
+//     resultPerPage,
+//     filteredProductsCount,
+//   });
+// });
+
+
+exports.getAllProduct = catchAsyncError(async (req, res, next) => {
+  const resultPerPage = 8;
   const productCount = await Product.countDocuments();
 
   const apiFeature = new ApiFeatures(Product.find(), req.query)
     .search()
     .filter()
-    .pagination(resultPerPage);
-  // const products = await Product.find();
+.pagination(resultPerPage)
+
+// let productAfter = await apiFeature.query;
+// let filteredProductsCount=productAfter.length;
+// apiFeature.pagination(resultPerPage);
+  
+
 
   const products = await apiFeature.query;
 
@@ -36,8 +74,10 @@ exports.getAllProduct = catchAsyncError(async (req, res, next) => {
     products,
     productCount,
     resultPerPage,
+    
   });
 });
+
 
 //get single product
 
